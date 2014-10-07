@@ -96,6 +96,10 @@ module Arturo
 
     protected
 
+    def load_feature
+      @feature ||= Arturo::Feature.find(params[:id])
+    end
+
     def require_permission
       unless may_manage_features?
         render :action => 'forbidden', :status => 403
@@ -103,8 +107,14 @@ module Arturo
       end
     end
 
-    def load_feature
-      @feature ||= Arturo::Feature.find(params[:id])
+    private
+
+    def notify(key, type = :notice)
+      respond_to do |format|
+        format.html {
+          flash[type] = t("arturo.features.flash.#{key}", :name => @feature.to_s)
+        }
+      end
     end
 
   end
