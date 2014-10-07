@@ -63,12 +63,11 @@ module Arturo
     def create
       @feature = Arturo::Feature.new(feature_params)
       if @feature.save
-        flash[:notice] = t('arturo.features.flash.created', :name => @feature.to_s)
-        redirect_to arturo_engine.features_path
+        notify('created')
       else
-        flash[:alert] = t('arturo.features.flash.error_creating', :name => @feature.to_s)
-        render :action => 'new'
+        notify('error_creating', :alert)
       end
+      respond_with @feature, :location => arturo_engine.features_path
     end
 
     def edit
