@@ -85,11 +85,11 @@ module Arturo
 
     def destroy
       if @feature.destroy
-        flash[:notice] = t('arturo.features.flash.removed', :name => @feature.to_s)
+        notify('removed')
       else
-        flash[:alert] = t('arturo.features.flash.error_removing', :name => @feature.to_s)
+        notify('error_removing', :alert)
       end
-      redirect_to arturo_engine.features_path
+      respond_with @feature, :location => arturo_engine.features_path
     end
 
     protected
