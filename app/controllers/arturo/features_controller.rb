@@ -112,6 +112,7 @@ module Arturo
         format.html {
           flash[type] = t("arturo.features.flash.#{key}", :name => @feature.to_s)
         }
+        format.json {}
       end
     end
 
