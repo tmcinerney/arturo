@@ -118,6 +118,4 @@ module Arturo
     end
 
   end
-
 end
-
