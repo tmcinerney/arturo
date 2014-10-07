@@ -76,12 +76,11 @@ module Arturo
 
     def update
       if @feature.update_attributes(feature_params)
-        flash[:notice] = t('arturo.features.flash.updated', :name => @feature.to_s)
-        redirect_to arturo_engine.feature_path(@feature)
+        notify('updated')
       else
-        flash[:alert] = t('arturo.features.flash.error_updating', :name => @feature.to_s)
-        render :action => 'edit'
+        notify('error_updating', :alert)
       end
+      respond_with @feature, :location => arturo_engine.feature_path(@feature)
     end
 
     def destroy
